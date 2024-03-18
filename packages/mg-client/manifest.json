@@ -1,0 +1,6 @@
+{
+  "name": "mg-plugin-template",
+  "id": 122080103259702,
+  "main": "dist/main.js",
+  "ui": "dist/index.html"
+}
