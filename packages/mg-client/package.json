@@ -3,17 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "cross-env TARGET=ui vite build",
+    "build:main": "cross-env TARGET=main vite build",
+    "dev:ui": "cross-env TARGET=ui NODE_ENV=development vite build --mode development -w",
+    "dev:main": "cross-env TARGET=main NODE_ENV=development vite build --mode development -w",
+    "dev": "vite build -w"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mastergo/plugin-typings": "^2.3.0"
+    "@mastergo/plugin-typings": "^2.3.0",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
+    "@types/node": "^20",
+    "dotenv": "^16.4.5",
     "typescript": "^5",
-    "vite": "^5.1.6"
+    "vite": "^5.1.6",
+    "vite-plugin-html": "^3.2.2"
   }
 }
