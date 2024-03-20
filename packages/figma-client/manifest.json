@@ -1,0 +1,15 @@
+{
+  "name": "figma-plugin-tmp",
+  "id": "1352242706443883282",
+  "api": "1.0.0",
+  "main": "dist/main.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"],
+  "ui": "dist/local.html",
+  "networkAccess": {
+    "allowedDomains": ["https://static.figma.com"],
+    "devAllowedDomains": ["http://localhost:3000"]
+  },
+  "documentAccess": "dynamic-page"
+}

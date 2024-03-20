@@ -25,18 +25,6 @@ export default function Action() {
           console.log('💡', e.dataTransfer.files)
         }}>
         <span>drop here</span>
-        <input
-          type='text'
-          onPaste={(e) => {
-            const items = e.clipboardData.items
-            if (items.length === 1 && items[0].type.indexOf('image') !== -1) {
-              // 复制的是图片
-              e.preventDefault()
-              const file = items[0].getAsFile()
-              console.log('💡', file)
-            }
-          }}
-        />
       </div>
       <Button
         onClick={() =>

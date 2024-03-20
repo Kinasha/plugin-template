@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "useDefineForClassFields": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
+    "allowJs": false,
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "react-jsx",
+    "sourceMap": false,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["ESNext"],
+    "outDir": "../dist",
+    "noEmit": true
+  }
+}

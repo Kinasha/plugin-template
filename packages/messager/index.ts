@@ -41,12 +41,15 @@ export function sendMsg2UI(msg: z.infer<typeof messageSchema>) {
 export function sendMsg2Plugin(msg: z.infer<typeof messageSchema>) {
   try {
     if (messageSchema.safeParse(msg).success) {
-      // @ts-ignore
-      if (typeof mg !== undefined) {
+      // get current search params
+      const url = new URL(location.href)
+      const searchParams = url.searchParams
+      const platform = searchParams.get('platform')
+      if (platform === 'mastergo') {
         parent.postMessage(msg, '*')
-        // @ts-ignore
-      } else if (typeof figma !== undefined) {
-        parent.postMessage({ pluginMessage: msg }, '*')
+      } else if (platform === 'figma') {
+        // Note: you cant change this pluginId to your's
+        parent.postMessage({ pluginMessage: msg, pluginId: '1352242706443883282' }, '*')
       }
     }
   } catch (e) {

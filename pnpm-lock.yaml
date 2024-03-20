@@ -8,6 +8,34 @@ importers:
 
   .: {}
 
+  packages/figma-client:
+    dependencies:
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      messager:
+        specifier: link:../messager
+        version: link:../messager
+    devDependencies:
+      '@figma/plugin-typings':
+        specifier: ^1.88.0
+        version: 1.88.0
+      '@types/node':
+        specifier: ^20
+        version: 20.11.28
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      typescript:
+        specifier: ^5.4.2
+        version: 5.4.2
+      vite:
+        specifier: ^5.1.6
+        version: 5.1.6(@types/node@20.11.28)
+      vite-plugin-html:
+        specifier: ^3.2.2
+        version: 3.2.2(vite@5.1.6)
+
   packages/messager:
     devDependencies:
       zod:
@@ -316,6 +344,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@figma/plugin-typings@1.88.0:
+    resolution: {integrity: sha512-ly9amJtPqlR48FZB0iKfyeCSo4O0QJhOfX+YYS/xEq0zoJzNETJLLQ43k93BS2W/N/BOVzgEjyAvC1WeuwFbdA==}
+    dev: true
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}

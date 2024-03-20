@@ -15,6 +15,7 @@ mg.on('selectionchange', (e: any) => {
 })
 
 mg.ui.onmessage = (msg: Message) => {
+  mg.notify('🚀 ~ msg: ' + JSON.stringify(msg))
   if (msg.type === 'HELLO') {
     console.log('👋', msg.payload.name)
     const frame = mg.createFrame()

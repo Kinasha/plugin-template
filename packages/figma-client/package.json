@@ -1,0 +1,31 @@
+{
+  "name": "figma-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "cross-env TARGET=ui vite build",
+    "build:main": "cross-env TARGET=main vite build",
+    "dev:ui": "cross-env TARGET=ui NODE_ENV=development vite build --mode development -w",
+    "dev:main": "cross-env TARGET=main NODE_ENV=development vite build --mode development -w",
+    "dev": "vite build -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "messager": "link:../messager"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.88.0",
+    "@types/node": "^20",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.6",
+    "vite-plugin-html": "^3.2.2"
+  }
+}
