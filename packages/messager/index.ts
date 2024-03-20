@@ -53,3 +53,16 @@ export function sendMsg2Plugin(msg: z.infer<typeof messageSchema>) {
     console.error('sendMsg2Plugin:', e)
   }
 }
+
+export function invoke() {
+  return new Promise(async (resolve, reject) => {
+    sendMsg2Plugin({
+      type: 'HELLO',
+      payload: {
+        name: 'world',
+      },
+    })
+    const res = '1'
+    resolve(res)
+  })
+}

@@ -17,5 +17,9 @@ mg.on('selectionchange', (e: any) => {
 mg.ui.onmessage = (msg: Message) => {
   if (msg.type === 'HELLO') {
     console.log('👋', msg.payload.name)
+    const frame = mg.createFrame()
+    mg.document.currentPage.appendChild(frame)
+    mg.document.currentPage.selection = [frame]
+    mg.viewport.scrollAndZoomIntoView([frame])
   }
 }

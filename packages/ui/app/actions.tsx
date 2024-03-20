@@ -1,18 +1,19 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import { sendMsg2Plugin } from 'messager'
 
-export default function Button() {
+export default function Action() {
   return (
-    <button
-      onClick={() => {
+    <Button
+      onClick={() =>
         sendMsg2Plugin({
           type: 'HELLO',
           payload: {
             name: 'world',
           },
         })
-      }}>
-      say hi
-    </button>
+      }>
+      click me
+    </Button>
   )
 }
