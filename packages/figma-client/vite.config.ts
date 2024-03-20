@@ -1,8 +1,6 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
 
-const target = process.env.TARGET
-
 export default defineConfig({
   build: {
     lib: {

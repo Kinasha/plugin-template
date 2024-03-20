@@ -17,8 +17,6 @@ figma.showUI(__html__, {
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 figma.ui.onmessage = (msg: Message) => {
-  console.log('🚀 ~ msg:', msg)
-  figma.notify('🚀 ~ msg: ' + JSON.stringify(msg))
   if (msg.type === 'HELLO') {
     console.log('👋', msg.payload.name)
     const frame = figma.createFrame()

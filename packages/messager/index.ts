@@ -39,7 +39,6 @@ export function sendMsg2UI(msg: z.infer<typeof messageSchema>) {
 }
 
 export function sendMsg2Plugin(msg: z.infer<typeof messageSchema>) {
-  console.log('🚀 ~ sendMsg2Plugin ~ msg:', msg)
   try {
     if (messageSchema.safeParse(msg).success) {
       // get current search params
