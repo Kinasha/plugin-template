@@ -8,6 +8,12 @@ importers:
 
   .: {}
 
+  packages/messager:
+    devDependencies:
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+
   packages/mg-client:
     dependencies:
       '@mastergo/plugin-typings':
@@ -16,6 +22,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      messager:
+        specifier: link:../messager
+        version: link:../messager
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -35,6 +44,9 @@ importers:
 
   packages/ui:
     dependencies:
+      messager:
+        specifier: link:../messager
+        version: link:../messager
       next:
         specifier: 14.1.3
         version: 14.1.3(react-dom@18.2.0)(react@18.2.0)
@@ -1846,4 +1858,8 @@ packages:
     resolution: {integrity: sha512-pIXzoImaqmfOrL7teGUBt/T7ZDnyeGBWyXQBvOVhLkWLN37GXv8NMLK406UY6dS51JfcQHsmcW5cJ441bHg6Lg==}
     engines: {node: '>= 14'}
     hasBin: true
+    dev: true
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: true

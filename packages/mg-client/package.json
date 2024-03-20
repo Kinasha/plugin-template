@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "cross-env TARGET=ui vite build",
@@ -17,7 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "@mastergo/plugin-typings": "^2.3.0",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "messager": "link:../messager"
   },
   "devDependencies": {
     "@types/node": "^20",
