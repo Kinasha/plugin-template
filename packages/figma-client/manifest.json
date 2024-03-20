@@ -6,9 +6,9 @@
   "capabilities": [],
   "enableProposedApi": false,
   "editorType": ["figma"],
-  "ui": "dist/local.html",
+  "ui": "dist/prod.html",
   "networkAccess": {
-    "allowedDomains": ["https://static.figma.com"],
+    "allowedDomains": ["https://static.figma.com", "https://plugin-template-ui.vercel.app/"],
     "devAllowedDomains": ["http://localhost:3000"]
   },
   "documentAccess": "dynamic-page"
