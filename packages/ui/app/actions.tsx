@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { sendMsg2Plugin } from 'messager'
 import { invoke, sendMessage } from '@/lib/message'
 import { useState } from 'react'
 
