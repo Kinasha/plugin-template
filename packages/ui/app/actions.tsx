@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { invoke, sendMessage } from 'shared/ui-messager'
+import { addMessageListener, invoke, removeMessageListener, sendMessage } from 'shared/ui-messager'
 import { useState } from 'react'
 
 export default function Action() {
@@ -28,7 +28,7 @@ export default function Action() {
         <span>drop here</span>
       </div>
       <div>
-        <input type='text' className='bg-slate-500 border-slate-400 w-10 h-20' onChange={(e) => setInputVal(e.target.value)} />
+        <input type='text' className='rounded-md border-solid border-2 border-slate-400 w-60 h-10' onChange={(e) => setInputVal(e.target.value)} />
         <Button
           onClick={async () => {
             const res = await invoke('HELLO', {
@@ -41,11 +41,27 @@ export default function Action() {
       </div>
       <Button
         onClick={() => {
+          addMessageListener('GOODBYE', ({ data }) => {
+            console.log('💡', data)
+          })
+        }}>
+        addMessageListener
+      </Button>
+      <Button
+        onClick={() => {
           sendMessage('HELLO', {
             name: 'hello',
           })
         }}>
-        addMessageListener
+        sendMessage
+      </Button>
+      <Button
+        onClick={() => {
+          removeMessageListener('GOODBYE', ({ data }) => {
+            console.log('💡', data)
+          })
+        }}>
+        removeMessageListener
       </Button>
     </>
   )

@@ -1,4 +1,4 @@
-import { addMessageListener } from 'shared/client-messager'
+import { addMessageListener, invoke } from 'shared/client-messager'
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
@@ -35,5 +35,11 @@ figma.on('run', async () => {
     reply({
       name: `reply to ${data.name}`,
     })
+  })
+  addMessageListener('GOODBYE', ({ reply }) => {
+    reply(undefined)
+  })
+  invoke('GOODBYE', {
+    age: '13',
   })
 })

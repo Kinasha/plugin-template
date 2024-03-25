@@ -44,7 +44,7 @@ function addMessageListener<T extends AllEventTypes>(type: T, callback: MessageR
   }
   const typeMap = GlobalMessageMap.get(type)
   const mapId = generateUUID()
-  typeMap?.set(mapId, (event) => {
+  typeMap?.set(mapId, (event: Message<T>) => {
     const { replyId } = event
     callback({
       ...event,
@@ -53,7 +53,7 @@ function addMessageListener<T extends AllEventTypes>(type: T, callback: MessageR
           version: VERSION,
           type,
           id: replyId ?? '',
-          data: replayData,
+          data: replayData!,
         })
       },
     })
@@ -80,9 +80,9 @@ function sendMessage<T extends AllEventTypes>(type: T, data: Payload<T>) {
 function invoke<T extends AllEventTypes>(type: T, data: Payload<T>) {
   return new Promise<Reply<T>>((resolve, reject) => {
     const id = generateUUID()
-    const callback = ({ data }: Reply<T>) => {
+    const callback = ({ data }: any) => {
       AskMessageMap.delete(id)
-      resolve(data)
+      resolve(data as Reply<T>)
     }
     AskMessageMap.set(id, callback)
     _postMessage({
