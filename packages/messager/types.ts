@@ -14,4 +14,4 @@ type MessageWithReply<T> = Message<T> & {
 
 type MessageReplyCallback<T> = (event: MessageWithReply<T>) => void
 
-export { Message, MessageCallback, MessageReplyCallback }
+export type { Message, MessageCallback, MessageReplyCallback }

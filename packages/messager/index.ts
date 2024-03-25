@@ -1,4 +1,4 @@
-import { Message, MessageCallback, MessageReplyCallback } from './types'
+import type { Message, MessageCallback, MessageReplyCallback } from './types'
 import { _postMessage, client, generateUUID } from './utils'
 
 const Listeners = new WeakMap<MessageReplyCallback<unknown>, string>()
