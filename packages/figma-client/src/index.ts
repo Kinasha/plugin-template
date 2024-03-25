@@ -1,4 +1,4 @@
-import { addMessageListener } from 'messager'
+import { addMessageListener } from 'shared/client-messager'
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
@@ -25,9 +25,15 @@ figma.showUI(__html__, {
 //     figma.viewport.scrollAndZoomIntoView([frame])
 //   }
 // }
-figma.on('run', () => {
-  addMessageListener('HELLO', ({ data, reply }) => {
-    console.log('💡', data)
-    reply({ name: 'world' })
+figma.on('run', async () => {
+  addMessageListener('HELLO', async ({ data, reply }) => {
+    const text = figma.createText()
+    await figma.loadFontAsync({ family: 'Inter', style: 'Regular' })
+    text.characters = data.name
+    figma.currentPage.appendChild(text)
+    figma.viewport.scrollAndZoomIntoView([text])
+    reply({
+      name: `reply to ${data.name}`,
+    })
   })
 })

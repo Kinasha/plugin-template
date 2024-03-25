@@ -1,4 +1,4 @@
-import { Message } from './types'
+import { Message } from '../types'
 
 const generateUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

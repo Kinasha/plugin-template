@@ -1,24 +1,12 @@
+import { VERSION } from '../constants'
+import { AllEventTypes, Payload, Reply } from '../schemas'
+import { Message, MessageReplyCallback } from '../types'
 const isClient = typeof window !== 'undefined'
 
-type Message<T> = {
-  version: string
-  type: string
-  id?: string
-  replyId?: string
-  data: T
-}
+const Listeners = new WeakMap<Function, string>()
+const GlobalMessageMap = new Map<string, Map<string, Function>>()
+const AskMessageMap = new Map<string, Function>()
 
-type MessageCallback<T> = (event: Message<T>) => void
-
-type MessageWithReply<T> = Message<T> & {
-  reply(replayData: any): void
-}
-
-type MessageReplyCallback<T> = (event: MessageWithReply<T>) => void
-
-const Listeners = new WeakMap<MessageReplyCallback<unknown>, string>()
-const GlobalMessageMap = new Map<string, Map<string, MessageCallback<unknown>>>()
-const AskMessageMap = new Map<string, MessageCallback<unknown>>()
 const generateUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0
@@ -26,17 +14,19 @@ const generateUUID = () => {
     return v.toString(16)
   })
 }
-const _postMessage = (event: Message<unknown>) => {
-  global.parent.postMessage(
-    {
-      pluginMessage: event,
-      pluginId: '*',
-    },
-    '*'
-  )
+const _postMessage = (event: Message<any>) => {
+  if (typeof window !== 'undefined' && window.parent) {
+    window.parent.postMessage(
+      {
+        pluginMessage: event,
+        pluginId: '*',
+      },
+      '*'
+    )
+  }
 }
 if (isClient) {
-  window.addEventListener('message', (event: MessageEvent<{ pluginMessage: Message<unknown> }>) => {
+  window.addEventListener('message', (event: MessageEvent<{ pluginMessage: Message<any> }>) => {
     const realEvent = event.data.pluginMessage
     const { type, id } = realEvent
     if (GlobalMessageMap.has(type)) {
@@ -48,7 +38,7 @@ if (isClient) {
   })
 }
 
-function addMessageListener<T>(type: string, callback: MessageReplyCallback<T>) {
+function addMessageListener<T extends AllEventTypes>(type: T, callback: MessageReplyCallback<T>) {
   if (!GlobalMessageMap.has(type)) {
     GlobalMessageMap.set(type, new Map())
   }
@@ -56,13 +46,12 @@ function addMessageListener<T>(type: string, callback: MessageReplyCallback<T>) 
   const mapId = generateUUID()
   typeMap?.set(mapId, (event) => {
     const { replyId } = event
-    // @ts-ignore
     callback({
       ...event,
       reply: (replayData) => {
         _postMessage({
-          version: '1',
-          type: `${type}_reply`,
+          version: VERSION,
+          type,
           id: replyId ?? '',
           data: replayData,
         })
@@ -71,31 +60,33 @@ function addMessageListener<T>(type: string, callback: MessageReplyCallback<T>) 
   })
 }
 
-function removeMessageListener(type: string, callback: MessageReplyCallback<unknown>) {
+function removeMessageListener<T extends AllEventTypes>(type: T, callback: MessageReplyCallback<T>) {
   const typeMap = GlobalMessageMap.get(type)
   const id = Listeners.get(callback)
   if (typeMap && id) {
     typeMap.delete(id)
   }
 }
-function sendMessage(type: string, data: any) {
+
+function sendMessage<T extends AllEventTypes>(type: T, data: Payload<T>) {
   _postMessage({
-    version: '1',
+    version: VERSION,
     type,
     id: generateUUID(),
     data,
   })
 }
-function invoke(type: string, data: any) {
-  return new Promise((resolve, reject) => {
+
+function invoke<T extends AllEventTypes>(type: T, data: Payload<T>) {
+  return new Promise<Reply<T>>((resolve, reject) => {
     const id = generateUUID()
-    const callback = ({ data }: Message<unknown>) => {
+    const callback = ({ data }: Reply<T>) => {
       AskMessageMap.delete(id)
       resolve(data)
     }
     AskMessageMap.set(id, callback)
     _postMessage({
-      version: '1',
+      version: VERSION,
       type,
       replyId: id,
       data,

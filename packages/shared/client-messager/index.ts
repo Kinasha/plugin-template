@@ -1,13 +1,15 @@
-import type { Message, MessageCallback, MessageReplyCallback } from './types'
-import { _postMessage, client, generateUUID } from './utils'
+import { VERSION } from '../constants'
+import type { AllEventTypes, Payload, Reply } from '../schemas'
+import type { Message, MessageReplyCallback } from '../types'
+import { _postMessage, client, generateUUID } from '../utils'
 
-const Listeners = new WeakMap<MessageReplyCallback<unknown>, string>()
-const GlobalMessageMap = new Map<string, Map<string, MessageCallback<unknown>>>()
-const AskMessageMap = new Map<string, MessageCallback<unknown>>()
+const Listeners = new WeakMap<Function, string>()
+const GlobalMessageMap = new Map<string, Map<string, Function>>()
+const AskMessageMap = new Map<string, Function>()
 
-client.ui.onmessage = (unknownEvent: Message<unknown> | { pluginMessage: Message<unknown> }) => {
+client.ui.onmessage = (unknownEvent: Message<any> | { pluginMessage: Message<any> }) => {
   const event = 'pluginMessage' in unknownEvent ? unknownEvent.pluginMessage : unknownEvent
-  const { type, id, replyId, data } = event
+  const { type, id } = event
   if (GlobalMessageMap.has(type)) {
     const callbacks = GlobalMessageMap.get(type)
     callbacks?.forEach((callback) => {
@@ -19,7 +21,7 @@ client.ui.onmessage = (unknownEvent: Message<unknown> | { pluginMessage: Message
   }
 }
 
-function addMessageListener<T>(type: string, callback: MessageReplyCallback<T>) {
+function addMessageListener<T extends AllEventTypes>(type: T, callback: MessageReplyCallback<T>) {
   if (!GlobalMessageMap.has(type)) {
     GlobalMessageMap.set(type, new Map())
   }
@@ -27,12 +29,11 @@ function addMessageListener<T>(type: string, callback: MessageReplyCallback<T>) 
   const callbackId = generateUUID()
   callbacksMap?.set(callbackId, (event) => {
     const { replyId } = event
-    // @ts-ignore
     callback({
       ...event,
       reply: (replayData) => {
         _postMessage({
-          version: '1',
+          version: VERSION,
           type,
           id: replyId ?? '',
           data: replayData,
@@ -42,31 +43,31 @@ function addMessageListener<T>(type: string, callback: MessageReplyCallback<T>) 
   })
 }
 
-function removeMessageListener(type: string, callback: MessageReplyCallback<unknown>) {
+function removeMessageListener<T extends AllEventTypes>(type: T, callback: MessageReplyCallback<T>) {
   const typeMap = GlobalMessageMap.get(type)
   const id = Listeners.get(callback)
   if (typeMap && id) {
     typeMap.delete(id)
   }
 }
-function sendMessage(type: string, data: any) {
+function sendMessage<T extends AllEventTypes>(type: T, data: Payload<T>) {
   _postMessage({
-    version: '1',
+    version: VERSION,
     type,
     id: generateUUID(),
     data,
   })
 }
-function invoke(type: string, data: any) {
+function invoke<T extends AllEventTypes>(type: T, data: Reply<T>) {
   return new Promise((resolve, reject) => {
     const id = generateUUID()
-    const callback = ({ data }: Message<unknown>) => {
+    const callback = ({ data }: Message<T>) => {
       AskMessageMap.delete(id)
       resolve(data)
     }
     AskMessageMap.set(id, callback)
     _postMessage({
-      version: '1',
+      version: VERSION,
       type,
       replyId: id,
       data,

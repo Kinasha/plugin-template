@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "pnpm --filter './packages/**' run dev"
+    "dev": "pnpm --filter '*-client' run dev & pnpm --filter 'ui' run dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tslib": "^2.6.2"
+  }
 }

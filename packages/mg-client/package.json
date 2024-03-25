@@ -19,7 +19,7 @@
   "dependencies": {
     "@mastergo/plugin-typings": "^2.3.0",
     "cross-env": "^7.0.3",
-    "messager": "link:../messager"
+    "shared": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^20",

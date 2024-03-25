@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": ["ES6"],
+    "lib": ["ESNext"],
     "strict": true,
     "useDefineForClassFields": true,
     "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],

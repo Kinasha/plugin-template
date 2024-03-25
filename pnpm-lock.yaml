@@ -6,16 +6,20 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
 
   packages/figma-client:
     dependencies:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
-      messager:
-        specifier: link:../messager
-        version: link:../messager
+      shared:
+        specifier: workspace:^
+        version: link:../shared
     devDependencies:
       '@figma/plugin-typings':
         specifier: ^1.88.0
@@ -36,12 +40,6 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.1.6)
 
-  packages/messager:
-    devDependencies:
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-
   packages/mg-client:
     dependencies:
       '@mastergo/plugin-typings':
@@ -50,9 +48,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
-      messager:
-        specifier: link:../messager
-        version: link:../messager
+      shared:
+        specifier: workspace:^
+        version: link:../shared
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -70,6 +68,12 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.1.6)
 
+  packages/shared:
+    dependencies:
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+
   packages/ui:
     dependencies:
       '@radix-ui/react-slot':
@@ -84,9 +88,6 @@ importers:
       lucide-react:
         specifier: ^0.359.0
         version: 0.359.0(react@18.2.0)
-      messager:
-        specifier: link:../messager
-        version: link:../messager
       next:
         specifier: 14.1.3
         version: 14.1.3(react-dom@18.2.0)(react@18.2.0)
@@ -96,6 +97,9 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.2.0(react@18.2.0)
+      shared:
+        specifier: link:../shared
+        version: link:../shared
       tailwind-merge:
         specifier: ^2.2.2
         version: 2.2.2
@@ -1889,4 +1893,4 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
-    dev: true
+    dev: false

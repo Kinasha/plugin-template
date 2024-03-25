@@ -1,11 +1,12 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { invoke, sendMessage } from '@/lib/message'
+import { invoke, sendMessage } from 'shared/ui-messager'
 import { useState } from 'react'
 
 export default function Action() {
   const [isDragOver, setIsDragOver] = useState<boolean>(false)
+  const [inputVal, setInputVal] = useState('')
 
   return (
     <>
@@ -26,18 +27,25 @@ export default function Action() {
         }}>
         <span>drop here</span>
       </div>
+      <div>
+        <input type='text' className='bg-slate-500 border-slate-400 w-10 h-20' onChange={(e) => setInputVal(e.target.value)} />
+        <Button
+          onClick={async () => {
+            const res = await invoke('HELLO', {
+              name: inputVal,
+            })
+            alert(JSON.stringify(res))
+          }}>
+          invoke
+        </Button>
+      </div>
       <Button
-        onClick={async () => {
-          // sendMsg2Plugin({
-          //   type: 'HELLO',
-          //   payload: {
-          //     name: 'world',
-          //   },
-          // })
-          const res = await invoke('HELLO', { name: 'hello' })
-          console.log('🚀 ~ onClick={ ~ res:', res)
+        onClick={() => {
+          sendMessage('HELLO', {
+            name: 'hello',
+          })
         }}>
-        click me
+        addMessageListener
       </Button>
     </>
   )

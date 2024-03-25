@@ -1,15 +1,13 @@
 {
-  "name": "messager",
+  "name": "shared",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "zod": "^3.22.4"
   }
 }
