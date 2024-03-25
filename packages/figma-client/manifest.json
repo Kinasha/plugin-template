@@ -8,7 +8,7 @@
   "editorType": [
     "figma"
   ],
-  "ui": "dist/prod.html",
+  "ui": "dist/local.html",
   "networkAccess": {
     "allowedDomains": [
       "https://static.figma.com",

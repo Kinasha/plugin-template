@@ -45,6 +45,9 @@ importers:
       '@mastergo/plugin-typings':
         specifier: ^2.3.0
         version: 2.3.0
+      chokidar:
+        specifier: ^3.6.0
+        version: 3.6.0
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
