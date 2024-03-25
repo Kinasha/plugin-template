@@ -6,12 +6,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "cross-env TARGET=ui vite build",
-    "build:main": "cross-env TARGET=main vite build",
-    "dev:ui": "cross-env TARGET=ui NODE_ENV=development vite build --mode development -w",
-    "dev:main": "cross-env TARGET=main NODE_ENV=development vite build --mode development -w",
-    "dev": "vite build -w"
+    "dev": "node ./scripts/change-manifest.mjs local & vite build -w",
+    "build": "node ./scripts/change-manifest.mjs prod & vite build"
   },
   "keywords": [],
   "author": "",

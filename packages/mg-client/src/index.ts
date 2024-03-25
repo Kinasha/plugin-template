@@ -11,6 +11,7 @@ mg.on('run', () => {
     text.characters = data.name
     mg.document.currentPage.appendChild(text)
     mg.viewport.scrollAndZoomIntoView([text])
+    mg.notify('HELLO')
     console.log('💡', data)
     reply({ name: 'world' })
   })

@@ -1,3 +1,4 @@
+import { AllEventTypes } from '../schemas'
 import { Message } from '../types'
 
 const generateUUID = () => {
@@ -31,7 +32,8 @@ const p = new Platform()
 const client = p.client
 const platform = p.platform
 
-const _postMessage = (event: Message<unknown>) => {
+const _postMessage = (event: Message<AllEventTypes>) => {
+  // 抹平不同平台的 postMessage 行为，UI 侧统一消费 event.data.pluginMessage
   if (platform === 'mg') {
     client.ui.postMessage({
       pluginMessage: event,

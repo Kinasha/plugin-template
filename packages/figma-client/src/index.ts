@@ -13,18 +13,6 @@ figma.showUI(__html__, {
   height: 667,
 })
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
-// figma.ui.onmessage = (msg: Message) => {
-//   if (msg.type === 'HELLO') {
-//     console.log('👋', msg.payload.name)
-//     const frame = figma.createFrame()
-//     figma.currentPage.appendChild(frame)
-//     figma.currentPage.selection = [frame]
-//     figma.viewport.scrollAndZoomIntoView([frame])
-//   }
-// }
 figma.on('run', async () => {
   addMessageListener('HELLO', async ({ data, reply }) => {
     const text = figma.createText()

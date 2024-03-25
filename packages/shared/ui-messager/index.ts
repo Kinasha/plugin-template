@@ -79,18 +79,22 @@ function sendMessage<T extends AllEventTypes>(type: T, data: Payload<T>) {
 
 function invoke<T extends AllEventTypes>(type: T, data: Payload<T>) {
   return new Promise<Reply<T>>((resolve, reject) => {
-    const id = generateUUID()
-    const callback = ({ data }: any) => {
-      AskMessageMap.delete(id)
-      resolve(data as Reply<T>)
+    try {
+      const id = generateUUID()
+      const callback = ({ data }: any) => {
+        AskMessageMap.delete(id)
+        resolve(data as Reply<T>)
+      }
+      AskMessageMap.set(id, callback)
+      _postMessage({
+        version: VERSION,
+        type,
+        replyId: id,
+        data,
+      })
+    } catch (e) {
+      reject(e)
     }
-    AskMessageMap.set(id, callback)
-    _postMessage({
-      version: VERSION,
-      type,
-      replyId: id,
-      data,
-    })
   })
 }
 
