@@ -9,5 +9,6 @@ export default defineConfig({
       formats: ['umd'],
       fileName: () => `main.js`,
     },
+    target: 'ES6',
   },
 })

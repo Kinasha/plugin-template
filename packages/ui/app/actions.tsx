@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { sendMsg2Plugin } from 'messager'
+import { invoke, sendMessage } from '@/lib/message'
 import { useState } from 'react'
 
 export default function Action() {
@@ -27,14 +28,16 @@ export default function Action() {
         <span>drop here</span>
       </div>
       <Button
-        onClick={() =>
-          sendMsg2Plugin({
-            type: 'HELLO',
-            payload: {
-              name: 'world',
-            },
-          })
-        }>
+        onClick={async () => {
+          // sendMsg2Plugin({
+          //   type: 'HELLO',
+          //   payload: {
+          //     name: 'world',
+          //   },
+          // })
+          const res = await invoke('HELLO', { name: 'hello' })
+          console.log('🚀 ~ onClick={ ~ res:', res)
+        }}>
         click me
       </Button>
     </>

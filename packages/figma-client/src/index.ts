@@ -1,4 +1,4 @@
-import { Message, sendMsg2UI } from 'messager'
+import { addMessageListener } from 'messager'
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
@@ -16,12 +16,18 @@ figma.showUI(__html__, {
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
-figma.ui.onmessage = (msg: Message) => {
-  if (msg.type === 'HELLO') {
-    console.log('👋', msg.payload.name)
-    const frame = figma.createFrame()
-    figma.currentPage.appendChild(frame)
-    figma.currentPage.selection = [frame]
-    figma.viewport.scrollAndZoomIntoView([frame])
-  }
-}
+// figma.ui.onmessage = (msg: Message) => {
+//   if (msg.type === 'HELLO') {
+//     console.log('👋', msg.payload.name)
+//     const frame = figma.createFrame()
+//     figma.currentPage.appendChild(frame)
+//     figma.currentPage.selection = [frame]
+//     figma.viewport.scrollAndZoomIntoView([frame])
+//   }
+// }
+figma.on('run', () => {
+  addMessageListener('HELLO', ({ data, reply }) => {
+    console.log('💡', data)
+    reply({ name: 'world' })
+  })
+})
