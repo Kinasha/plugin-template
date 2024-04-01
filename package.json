@@ -8,6 +8,10 @@
     "dev": "pnpm --filter '*-client' run dev & pnpm --filter 'ui' run dev",
     "build": "pnpm --filter '*-client' run build & pnpm --filter 'ui' run build"
   },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=6.0.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

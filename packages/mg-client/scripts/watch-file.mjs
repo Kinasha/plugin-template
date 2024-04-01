@@ -4,9 +4,20 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import chokidar from 'chokidar'
 
-chokidar.watch('../dist').on('all', (event, path) => {
+const distDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist')
+
+const shell = `
+#!/usr/bin/env bash
+osascript <<'EOF'
+tell application "MasterGo" to activate
+tell application "System Events" to tell process "MasterGoPrivate"
+    keystroke "p" using {command down, option down}
+end tell
+EOF
+`
+chokidar.watch(distDir).on('all', (event, path) => {
   exec(`echo "watch-file.mjs: ${event} ${path}"`)
-  exec(`./reload.apple.sh`)
+  exec(shell)
 })
 // const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // const file = path.resolve(__dirname, 'main.js')

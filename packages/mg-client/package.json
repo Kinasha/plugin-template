@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "node ./scripts/change-manifest.mjs local & vite build -w",
-    "build": "node ./scripts/change-manifest.mjs prod & vite build"
+    "build": "node ./scripts/change-manifest.mjs prod & vite build",
+    "watch": "node ./scripts/watch-file.mjs"
   },
   "keywords": [],
   "author": "",
